@@ -1,0 +1,56 @@
+{
+  "index_patterns": ["finance"],
+  "template": {
+    "settings": { "number_of_shards": 3 },
+    "mappings": {
+      "properties": {
+        "rel": {
+          "type": "join",
+          "relations": {
+            "user": "card",
+            "card": "transaction"
+          }
+        },
+
+        "id":                { "type":"keyword" },
+        "client_id":         { "type":"keyword" },
+        "card_id":           { "type":"keyword" },
+
+        "card_brand":        { "type":"keyword" },
+        "card_type":         { "type":"keyword" },
+        "card_number":       { "type":"keyword" },
+        "expires":           { "type":"date","format":"MM/yyyy" },
+        "cvv":               { "type":"keyword" },
+        "has_chip":          { "type":"boolean" },
+        "num_cards_issued":  { "type":"integer" },
+        "credit_limit":      { "type":"double" },
+        "acct_open_date":    { "type":"date","format":"MM/yyyy" },
+        "year_pin_last_change": { "type":"integer" },
+        "card_on_darkweb":   { "type":"boolean" },
+
+        "date":              { "type":"date" },
+        "amount":            { "type":"double" },
+        "use_chip":          { "type":"keyword" },
+        "merchant_id":       { "type":"keyword" },
+        "merchant_city":     { "type":"keyword" },
+        "merchant_state":    { "type":"keyword" },
+        "zip":               { "type":"keyword" },
+        "mcc":               { "type":"keyword" },
+        "errors":            { "type":"text" },
+
+        "current_age":       { "type":"integer" },
+        "retirement_age":    { "type":"integer" },
+        "birth_year":        { "type":"integer" },
+        "birth_month":       { "type":"integer" },
+        "gender":            { "type":"keyword" },
+        "address":           { "type":"text" },
+        "location":          { "type":"geo_point" },
+        "per_capita_income": { "type":"double" },
+        "yearly_income":     { "type":"double" },
+        "total_debt":        { "type":"double" },
+        "credit_score":      { "type":"integer" },
+        "num_credit_cards":  { "type":"integer" }
+      }
+    }
+  }
+}

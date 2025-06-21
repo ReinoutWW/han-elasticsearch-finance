@@ -1,0 +1,8 @@
+{
+  "query": {
+    "term": {
+      "rel.name": "transaction"
+    }
+  },
+  "size": 3
+} 

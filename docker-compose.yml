@@ -1,0 +1,38 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.0
+    environment:
+      - node.name=es01
+      - cluster.name=quick-es
+      - discovery.type=single-node        # local only
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms4g -Xmx4g        # ½ of 8 GB
+      - indices.memory.index_buffer_size=30%
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.18.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on: [elasticsearch]
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.18.0
+    volumes:
+      - ./pipelines:/usr/share/logstash/pipeline      # our *.conf
+      - ./csv:/csv                                    # our data
+    environment:
+      - LS_JAVA_OPTS=-Xms2g -Xmx2g
+    depends_on: [elasticsearch]
+
+volumes:
+  esdata:   # named volume so "docker compose down -v" cleans up 

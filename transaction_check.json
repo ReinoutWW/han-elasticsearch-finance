@@ -1,0 +1,9 @@
+{
+  "query": {
+    "parent_id": {
+      "type": "transaction",
+      "id": "*"
+    }
+  },
+  "size": 3
+} 
