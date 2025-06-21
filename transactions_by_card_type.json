@@ -1,0 +1,22 @@
+{
+  "size": 0,
+  "query": {
+    "match": {
+      "rel": "card"
+    }
+  },
+  "aggs": {
+    "by_card_type": {
+      "terms": {
+        "field": "card_type"
+      },
+      "aggs": {
+        "transactions": {
+          "children": {
+            "type": "transaction"
+          }
+        }
+      }
+    }
+  }
+} 

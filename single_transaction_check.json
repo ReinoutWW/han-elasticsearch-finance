@@ -1,0 +1,8 @@
+{
+  "query": {
+    "match": {
+      "rel.name": "transaction"
+    }
+  },
+  "size": 1
+} 

@@ -1,0 +1,19 @@
+{
+  "size": 0,
+  "query": {
+    "match": {
+      "rel": "card"
+    }
+  },
+  "aggs": {
+    "cards_per_user": {
+      "terms": {
+        "field": "client_id",
+        "size": 20,
+        "order": {
+          "_count": "desc"
+        }
+      }
+    }
+  }
+} 

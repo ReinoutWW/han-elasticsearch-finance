@@ -1,0 +1,32 @@
+{
+  "size": 0,
+  "query": {
+    "match": {
+      "rel": "card"
+    }
+  },
+  "aggs": {
+    "duplicate_cards": {
+      "terms": {
+        "field": "card_number",
+        "min_doc_count": 2,
+        "size": 10
+      },
+      "aggs": {
+        "user_count": {
+          "cardinality": {
+            "field": "client_id"
+          }
+        },
+        "multi_user_filter": {
+          "bucket_selector": {
+            "buckets_path": {
+              "userCount": "user_count"
+            },
+            "script": "params.userCount > 1"
+          }
+        }
+      }
+    }
+  }
+} 

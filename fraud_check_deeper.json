@@ -1,0 +1,38 @@
+{
+  "size": 0,
+  "query": {
+    "has_parent": {
+      "parent_type": "card",
+      "query": {
+        "match_all": {}
+      }
+    }
+  },
+  "aggs": {
+    "group_by_card": {
+      "terms": {
+        "field": "card_id",
+        "size": 10
+      },
+      "aggs": {
+        "transacting_clients": {
+          "terms": {
+            "field": "client_id"
+          }
+        },
+        "card_owner": {
+          "parent": {
+            "type": "card"
+          },
+          "aggs": {
+            "owner_id": {
+              "terms": {
+                "field": "client_id"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+} 

@@ -1,0 +1,18 @@
+{
+  "size": 5,
+  "query": {
+    "has_parent": {
+      "parent_type": "card",
+      "query": {
+        "match_all": {}
+      }
+    }
+  },
+  "sort": [
+    {
+      "amount": {
+        "order": "desc"
+      }
+    }
+  ]
+} 

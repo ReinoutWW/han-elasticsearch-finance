@@ -1,0 +1,14 @@
+{
+  "size": 0,
+  "aggs": {
+    "transactions_by_user": {
+      "terms": {
+        "field": "client_id",
+        "size": 1,
+        "order": {
+          "_count": "desc"
+        }
+      }
+    }
+  }
+} 

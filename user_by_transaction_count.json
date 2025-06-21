@@ -1,0 +1,26 @@
+{
+  "query": {
+    "match": {
+      "rel.name": "transaction"
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "users": {
+      "terms": {
+        "field": "client_id",
+        "size": 10000
+      },
+      "aggs": {
+        "filter_by_count": {
+          "bucket_selector": {
+            "buckets_path": {
+              "count": "_count"
+            },
+            "script": "params.count == 11376"
+          }
+        }
+      }
+    }
+  }
+} 

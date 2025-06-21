@@ -1,0 +1,54 @@
+{
+  "size": 0,
+  "query": {
+    "match": {
+      "rel": "user"
+    }
+  },
+  "aggs": {
+    "users": {
+      "terms": {
+        "field": "id",
+        "size": 1000
+      },
+      "aggs": {
+        "cards": {
+          "children": {
+            "type": "card"
+          },
+          "aggs": {
+            "transactions": {
+              "children": {
+                "type": "transaction"
+              },
+              "aggs": {
+                "transaction_count": {
+                  "value_count": {
+                    "field": "_index"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "total_transactions": {
+          "sum_bucket": {
+            "buckets_path": "cards>transactions>transaction_count"
+          }
+        },
+        "sort_by_total_transactions": {
+          "bucket_sort": {
+            "sort": [
+              {
+                "total_transactions": {
+                  "order": "desc"
+                }
+              }
+            ],
+            "size": 1
+          }
+        }
+      }
+    }
+  }
+} 

@@ -1,0 +1,11 @@
+{
+  "query": {
+    "bool": {
+      "must_not": [
+        { "match": { "rel.name": "user" } },
+        { "match": { "rel.name": "card" } }
+      ]
+    }
+  },
+  "size": 1
+} 

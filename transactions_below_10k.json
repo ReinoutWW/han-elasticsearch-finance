@@ -1,0 +1,31 @@
+{
+  "size": 0,
+  "aggs": {
+    "users": {
+      "terms": {
+        "field": "client_id",
+        "size": 10000
+      },
+      "aggs": {
+        "count_filter": {
+          "bucket_selector": {
+            "buckets_path": {
+              "count": "_count"
+            },
+            "script": "params.count < 10000"
+          }
+        },
+        "count_sorter": {
+          "bucket_sort": {
+            "sort": [
+              {
+                "_count": "desc"
+              }
+            ],
+            "size": 1
+          }
+        }
+      }
+    }
+  }
+} 
